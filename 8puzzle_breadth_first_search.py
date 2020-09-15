@@ -1,7 +1,5 @@
 # breadth first search
 import copy
-import time
-start_time= time.time()
 def compare(arr1,arr2):
     if arr1==arr2:
         return 1
@@ -64,4 +62,3 @@ while len(queue)!=0:
                 queue.append(copy.deepcopy(arr))
             arr[i][j],arr[i][j+1] = swap(arr[i][j],arr[i][j+1])
 print(count)
-print(round(time.time()-start_time,6))
