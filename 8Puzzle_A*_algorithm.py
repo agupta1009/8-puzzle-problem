@@ -1,12 +1,15 @@
 # A* algorithm
 import copy
+# COMPARE FUNCTION IS THERE TO COMPARE THE CURRENT STATE AND FINAL STATE
 def compare(arr1,arr2):
     if arr1==arr2:
         return 1
     else:
         return 0
+# SWAP FUNCTION IS CREATED TO SWAP THE EMPTY BOX OR "0"
 def swap(a,b):
     return b,a
+# FIND ZERO GIVES YOU THE INDICES OF THE EMPTY BOX OR "0"
 def find_zero(arr):
     for i in range(len(arr)):
         for j in range(len(arr[i])):
@@ -20,6 +23,7 @@ def heurestic(arr,final):
             if arr[i][j] == final[i][j]:
                 count+=1
     return count
+# INITIAL STATE
 arr = [[2,0,3],
        [1,8,4],
        [7,6,5]
@@ -40,6 +44,7 @@ while len(queue)!=0:
     arr=queue[0][0]
     count+=1
     if compare(arr,final_state):
+        # FINAL STATE REACHED
         visited.append(copy.deepcopy(arr))
         print(f"Matched in {count} no. of steps")
         for x in visited:
@@ -48,12 +53,15 @@ while len(queue)!=0:
             print("\n")
         break
     else:
+        # GENERATING SUCCESSORS
         visited.append(copy.deepcopy(arr))
         i,j=find_zero(arr)
         if i-1>=0:
             arr[i][j],arr[i-1][j] = swap(arr[i][j],arr[i-1][j])
             if arr not in visited:
+                # CALCULATING THE COST THAT IS HEURESTIC VALUE FOR EACH SUCCESSOR
                 cost=heurestic(arr,final_state)
+                # deepcopy is used because list provide refrence to the element not the value
                 queue.append((copy.deepcopy(arr),cost))
             arr[i][j],arr[i-1][j] = swap(arr[i][j],arr[i-1][j])
                 
